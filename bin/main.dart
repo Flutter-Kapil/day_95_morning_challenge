@@ -82,4 +82,44 @@ void main() {
       "date": "2019-09-20"
     },
   ]));
+
+  // For example, given the set of words 'quick', 'brown', 'the', 'fox', and the
+// string "thequickbrownfox", you should return ['the', 'quick', 'brown', 'fox'].
+//
+// Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the
+// string "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or
+// ['bedbath', 'and', 'beyond'].
+print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
+  print(originalString(['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+}
+
+List<String> originalString(List<String> words, String noSpaceString){
+  List<String> res=[];
+
+  if(words.length==0||noSpaceString.length==0){
+    return [];
+  }
+
+  for(int i=0;i<words.length;i++){
+    String currentWord=words[i];
+    int lengthToTrim= currentWord.length;
+    if(matchWord(currentWord, noSpaceString)){
+      res.add(currentWord);
+      noSpaceString=noSpaceString.substring(lengthToTrim);
+      words.removeAt(i);
+      res.addAll(originalString(words, noSpaceString));
+    }
+  }
+
+
+  return res.isEmpty?null:res;
+}
+
+bool matchWord(String currentWord, String noSpaceString){
+  for(int i=0;i<currentWord.length;i++){
+    if(currentWord[i]!=noSpaceString[i]){
+      return false;
+    }
+  }
+  return true;
 }

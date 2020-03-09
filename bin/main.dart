@@ -40,6 +40,8 @@
 // string "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or
 // ['bedbath', 'and', 'beyond'].
 int longestStreak(List<Map> days) {
+  if(days.isEmpty)
+    return 0;
   days.sort((a, b) => a['date'].compareTo(b['date']));
 //  print(days);
   int longestStreak = 1;
@@ -88,13 +90,15 @@ void main() {
 // Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the
 // string "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or
 // ['bedbath', 'and', 'beyond'].
-  print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
-  print(originalString(
-      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
-  print(originalString(
-      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
-  print(originalString(
-      ['bedbath','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
+//  print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
+//  print(originalString(
+//      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+//  print(originalString(
+//      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
+//  print(originalString(
+//      ['bedbath','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
+  print(originalString(['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
+      'thatfoxisthequickbrownfox'));
 }
 
 List<String> originalString(List<String> words, String noSpaceString) {

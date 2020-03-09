@@ -40,6 +40,46 @@
 // Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the
 // string "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or
 // ['bedbath', 'and', 'beyond'].
+int longestStreak(List<Map> days){
+  days.sort((a, b) => a['date'].compareTo(b['date']));
+  print(days);
+  int longestStreak=1;
+  int temp=1;
+  for(int i=0;i<days.length-1;i++){
+    if(differenceBetweenDays(days[i]['date'], days[i+1]['date'])==1){
+      temp++;
+    }else{
+      if(longestStreak<temp){
+        longestStreak=temp;
+      }
+       temp=0;
+    }
+  }
+  return longestStreak;
+}
 
+int differenceBetweenDays(String day1, String day2){
+  return DateTime.parse(day2).difference(DateTime.parse(day1)).inDays;
+}
 void main() {
+  print( longestStreak([
+    {
+      "date": "2019-09-18"
+    },
+    {
+      "date": "2019-09-19"
+    },
+    {
+      "date": "2019-09-26"
+    },
+    {
+      "date": "2019-09-27"
+    },
+    {
+      "date": "2019-09-30"
+    },
+    {
+      "date": "2019-09-20"
+    },
+  ]));
 }

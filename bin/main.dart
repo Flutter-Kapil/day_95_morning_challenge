@@ -40,8 +40,7 @@
 // string "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or
 // ['bedbath', 'and', 'beyond'].
 int longestStreak(List<Map> days) {
-  if(days.isEmpty)
-    return 0;
+  if (days.isEmpty) return 0;
   days.sort((a, b) => a['date'].compareTo(b['date']));
 //  print(days);
   int longestStreak = 1;
@@ -65,24 +64,28 @@ int differenceBetweenDays(String day1, String day2) {
 
 void main() {
   print(longestStreak([
-    {"date": "2019-09-18"},
-    {"date": "2019-09-19"},
-    {"date": "2019-09-26"},
-    {"date": "2019-09-27"},
-    {"date": "2019-09-30"},
-    {"date": "2019-09-20"},
-  ])==3);
+        {"date": "2019-09-18"},
+        {"date": "2019-09-19"},
+        {"date": "2019-09-26"},
+        {"date": "2019-09-27"},
+        {"date": "2019-09-30"},
+        {"date": "2019-09-20"},
+      ]) ==
+      3);
   print(longestStreak([
-    {"date": "2019-09-18"},
-    {"date": "2019-09-19"},
-  ])==2);
+        {"date": "2019-09-18"},
+        {"date": "2019-09-19"},
+      ]) ==
+      2);
   print(longestStreak([
-    {"date": "2019-09-18"},
-  ])==1);
+        {"date": "2019-09-18"},
+      ]) ==
+      1);
   print(longestStreak([
-    {"date": "2019-09-18"},
-    {"date": "2019-10-19"},
-  ])==1);
+        {"date": "2019-09-18"},
+        {"date": "2019-10-19"},
+      ]) ==
+      1);
 
   // For example, given the set of words 'quick', 'brown', 'the', 'fox', and the
 // string "thequickbrownfox", you should return ['the', 'quick', 'brown', 'fox'].
@@ -93,25 +96,25 @@ void main() {
   print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
   print(originalString(
       ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
-  print(originalString(
-      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
+  print(originalString(['bed', 'bath', 'bedbath', 'and', 'beyond'],
+      "bedbathandbeyondeverything"));
   print(originalString(
       ['bedbath','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
   print(originalString(['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
       'thatfoxisthequickbrownfox'));
-//  print(originalString(['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
-//      'fox'));
+  print(originalString(
+      ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
 }
 
 List<String> originalString(List<String> dictionary, String noSpaceString) {
   List<String> res = [];
 
   if (noSpaceString.length == 0) {
-    return [];
+    return null;
   }
 
   for (int i = 0; i < noSpaceString.length; i++) {
-    String currentWord = noSpaceString.substring(0,i+1);
+    String currentWord = noSpaceString.substring(0, i+1);
     int lengthToTrim = currentWord.length;
     if (dictionary.contains(currentWord)) {
       res.add(currentWord);
@@ -119,12 +122,21 @@ List<String> originalString(List<String> dictionary, String noSpaceString) {
     }
   }
 //  print("noSpaceString is ${noSpaceString} ");
-  if(res.isEmpty)
+  if (res.isEmpty) {
+//    print('1');
     return null;
-  else{
-    res.addAll(originalString(dictionary, noSpaceString)??[]);
+  } else if (noSpaceString.isEmpty) {
+//    print('2');
     return res;
+  } else {
+//    print('3');
+    List<String> temp = originalString(dictionary, noSpaceString);
+    if (temp != null) res.addAll(temp);
+//    print("res:$res noSpcaeString:$noSpaceString");
+//    if(res.join("").length!=noSpaceString.length){
+//      return null;
+//    }
+    return (temp != null) ? res : temp;
   }
   return res.isEmpty ? null : res;
 }
-

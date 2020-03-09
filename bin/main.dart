@@ -101,6 +101,9 @@ void main() {
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
   print(originalString(
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], ''));
+  print(originalString(
+      ['bedb','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+
 }
 
 List<String> originalString(List<String> dictionary, String noSpaceString) {

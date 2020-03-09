@@ -90,44 +90,41 @@ void main() {
 // Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the
 // string "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or
 // ['bedbath', 'and', 'beyond'].
-//  print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
-//  print(originalString(
-//      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
-//  print(originalString(
-//      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
-//  print(originalString(
-//      ['bedbath','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
+  print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
+  print(originalString(
+      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString(
+      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
+  print(originalString(
+      ['bedbath','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
   print(originalString(['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
       'thatfoxisthequickbrownfox'));
+//  print(originalString(['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
+//      'fox'));
 }
 
-List<String> originalString(List<String> words, String noSpaceString) {
+List<String> originalString(List<String> dictionary, String noSpaceString) {
   List<String> res = [];
 
-  if (words.length == 0 || noSpaceString.length == 0) {
+  if (noSpaceString.length == 0) {
     return [];
   }
 
-  for (int i = 0; i < words.length; i++) {
-    String currentWord = words[i];
+  for (int i = 0; i < noSpaceString.length; i++) {
+    String currentWord = noSpaceString.substring(0,i+1);
     int lengthToTrim = currentWord.length;
-    if (matchWord(currentWord, noSpaceString)) {
+    if (dictionary.contains(currentWord)) {
       res.add(currentWord);
       noSpaceString = noSpaceString.substring(lengthToTrim);
-      words.removeAt(i);
-//      print("words: $words  noSpaceString is ${noSpaceString}");
-      res.addAll(originalString(words, noSpaceString)??[]);
     }
   }
-
+//  print("noSpaceString is ${noSpaceString} ");
+  if(res.isEmpty)
+    return null;
+  else{
+    res.addAll(originalString(dictionary, noSpaceString)??[]);
+    return res;
+  }
   return res.isEmpty ? null : res;
 }
 
-bool matchWord(String currentWord, String noSpaceString) {
-  for (int i = 0; i < currentWord.length; i++) {
-    if (currentWord[i] != noSpaceString[i]) {
-      return false;
-    }
-  }
-  return true;
-}

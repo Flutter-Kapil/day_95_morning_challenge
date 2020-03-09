@@ -93,6 +93,8 @@ void main() {
       ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print(originalString(
       ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
+  print(originalString(
+      ['bedbath','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
 }
 
 List<String> originalString(List<String> words, String noSpaceString) {

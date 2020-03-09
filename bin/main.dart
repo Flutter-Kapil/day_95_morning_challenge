@@ -87,23 +87,20 @@ void main() {
       ]) ==
       1);
 
-  // For example, given the set of words 'quick', 'brown', 'the', 'fox', and the
-// string "thequickbrownfox", you should return ['the', 'quick', 'brown', 'fox'].
-//
-// Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the
-// string "bedbathandbeyond", return either ['bed', 'bath', 'and', 'beyond] or
-// ['bedbath', 'and', 'beyond'].
   print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
   print(originalString(
       ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print(originalString(['bed', 'bath', 'bedbath', 'and', 'beyond'],
       "bedbathandbeyondeverything"));
+  print(originalString(['bedbath', 'bed', 'bath', 'bedbath', 'and', 'beyond'],
+      "bedbathandbeyondeverything"));
   print(originalString(
-      ['bedbath','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
-  print(originalString(['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
+      ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
       'thatfoxisthequickbrownfox'));
   print(originalString(
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
+  print(originalString(
+      ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], ''));
 }
 
 List<String> originalString(List<String> dictionary, String noSpaceString) {
@@ -114,29 +111,22 @@ List<String> originalString(List<String> dictionary, String noSpaceString) {
   }
 
   for (int i = 0; i < noSpaceString.length; i++) {
-    String currentWord = noSpaceString.substring(0, i+1);
+    String currentWord = noSpaceString.substring(0, i + 1);
     int lengthToTrim = currentWord.length;
     if (dictionary.contains(currentWord)) {
       res.add(currentWord);
       noSpaceString = noSpaceString.substring(lengthToTrim);
     }
   }
-//  print("noSpaceString is ${noSpaceString} ");
+
   if (res.isEmpty) {
-//    print('1');
     return null;
   } else if (noSpaceString.isEmpty) {
-//    print('2');
     return res;
   } else {
-//    print('3');
     List<String> temp = originalString(dictionary, noSpaceString);
     if (temp != null) res.addAll(temp);
-//    print("res:$res noSpcaeString:$noSpaceString");
-//    if(res.join("").length!=noSpaceString.length){
-//      return null;
-//    }
+
     return (temp != null) ? res : temp;
   }
-  return res.isEmpty ? null : res;
 }

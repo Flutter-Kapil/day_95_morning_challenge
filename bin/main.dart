@@ -41,7 +41,7 @@
 // ['bedbath', 'and', 'beyond'].
 int longestStreak(List<Map> days) {
   days.sort((a, b) => a['date'].compareTo(b['date']));
-  print(days);
+//  print(days);
   int longestStreak = 1;
   int temp = 1;
   for (int i = 0; i < days.length - 1; i++) {
@@ -69,11 +69,18 @@ void main() {
     {"date": "2019-09-27"},
     {"date": "2019-09-30"},
     {"date": "2019-09-20"},
-  ]));
+  ])==3);
   print(longestStreak([
     {"date": "2019-09-18"},
     {"date": "2019-09-19"},
-  ]));
+  ])==2);
+  print(longestStreak([
+    {"date": "2019-09-18"},
+  ])==1);
+  print(longestStreak([
+    {"date": "2019-09-18"},
+    {"date": "2019-10-19"},
+  ])==1);
 
   // For example, given the set of words 'quick', 'brown', 'the', 'fox', and the
 // string "thequickbrownfox", you should return ['the', 'quick', 'brown', 'fox'].
@@ -84,6 +91,8 @@ void main() {
   print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
   print(originalString(
       ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString(
+      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyondeverything"));
 }
 
 List<String> originalString(List<String> words, String noSpaceString) {
@@ -100,7 +109,8 @@ List<String> originalString(List<String> words, String noSpaceString) {
       res.add(currentWord);
       noSpaceString = noSpaceString.substring(lengthToTrim);
       words.removeAt(i);
-      res.addAll(originalString(words, noSpaceString));
+//      print("words: $words  noSpaceString is ${noSpaceString}");
+      res.addAll(originalString(words, noSpaceString)??[]);
     }
   }
 

@@ -196,11 +196,10 @@ multiplString(int n, String str) {
 
 List<String> originalString2(List<String> dictionary, String noSpaceString) {
   List<String> res = [];
-
+  List<Map> possibilities=[];
   if (noSpaceString.length == 0) {
     return null;
   }
-    String prevValue='';
   mainLoop:
   while (noSpaceString.length != 0) {
     for (int i = 0; i < noSpaceString.length; i++) {
@@ -208,7 +207,7 @@ List<String> originalString2(List<String> dictionary, String noSpaceString) {
       int lengthToTrim = currentWord.length;
       if (dictionary.contains(currentWord)) {
         res.add(currentWord);
-        prevValue = noSpaceString;
+
         noSpaceString = noSpaceString.substring(lengthToTrim);
         continue mainLoop;
       }
@@ -229,6 +228,7 @@ List<String> originalString2(List<String> dictionary, String noSpaceString) {
     else if(noSpaceString.isNotEmpty && res.isNotEmpty){
 //      print("nospaceString is $noSpaceString and res is $res ");
       print(3);
+      //can add another while llop here, which goes through each starting position, and then
       return null;
     }
     print(4);

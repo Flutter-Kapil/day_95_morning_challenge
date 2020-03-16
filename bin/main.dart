@@ -140,11 +140,19 @@ void main() {
       ['bedb', 'bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print("------------");
   print("test 9");
-  print(originalString2(
+  print(originalString(
       ['bedb','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print(originalString2(
+      ['bedb','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString(
       ['be','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
-  print("------------");
+  print(originalString2(
+      ['be','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print("------------111");
+  print(originalString(
+      ['bed', 'bat', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString2(
+      ['bed', 'bat', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
 }
 
 List<String> originalString(List<String> dictionary, String noSpaceString) {

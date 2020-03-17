@@ -133,8 +133,8 @@ void main() {
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
   print(originalString2(
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
-//  print(originalString3(
-//      ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
+  print(originalString3(
+      ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
   print("------------");
   print("test 7");
   print(originalString(
@@ -282,14 +282,14 @@ List<String> originalString2(List<String> dictionary, String noSpaceString) {
 }
 
 List<String> originalString3(List<String> dict, String str) {
-  print("is str empty ${str.isEmpty} length ${str.length}");
+//  print("is str empty ${str.isEmpty} length ${str.length}");
   if(str.isEmpty)
     return null;
   Map<String,String> matchedDictWords={};
   mainForLoop:for(int i=0;i<dict.length;i++){
     String selectedWord=dict[i];
-    if(dict.contains(selectedWord)){
-      print("selectedword is $selectedWord");
+    if(str.contains(selectedWord)){
+//      print("selectedword is $selectedWord");
       if(selectedWord==str){
         matchedDictWords[selectedWord]="";
       }else

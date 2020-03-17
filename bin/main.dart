@@ -91,11 +91,14 @@ void main() {
   print("test 1");
   print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
   print(originalString2(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
+  print(originalString3(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
   print("------------");
   print("test 2");
   print(originalString(
       ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print(originalString2(
+      ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString3(
       ['bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print("------------");
   print("test 3");
@@ -103,11 +106,15 @@ void main() {
       "bedbathandbeyondeverything"));
   print(originalString2(['bed', 'bath', 'bedbath', 'and', 'beyond'],
       "bedbathandbeyondeverything"));
+  print(originalString3(['bed', 'bath', 'bedbath', 'and', 'beyond'],
+      "bedbathandbeyondeverything"));
   print("------------");
   print("test 4");
   print(originalString(['bedbath', 'bed', 'bath', 'bedbath', 'and', 'beyond'],
       "bedbathandbeyondeverything"));
   print(originalString2(['bedbath', 'bed', 'bath', 'bedbath', 'and', 'beyond'],
+      "bedbathandbeyondeverything"));
+  print(originalString3(['bedbath', 'bed', 'bath', 'bedbath', 'and', 'beyond'],
       "bedbathandbeyondeverything"));
   print("------------");
   print("test 5");
@@ -117,17 +124,24 @@ void main() {
   print(originalString2(
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
       'thatfoxisthequickbrownfox'));
+  print(originalString3(
+      ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'],
+      'thatfoxisthequickbrownfox'));
   print("------------");
   print("test 6");
   print(originalString(
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
   print(originalString2(
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
+//  print(originalString3(
+//      ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], 'fox'));
   print("------------");
   print("test 7");
   print(originalString(
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], ''));
   print(originalString2(
+      ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], ''));
+  print(originalString3(
       ['quick', 'brown', 'the', 'fox', 'quickbrown', 'that', 'is'], ''));
   print("------------");
   print("test 8");
@@ -138,20 +152,29 @@ void main() {
 //      multiplString(10000, "bedbathandbeyond")));
   print(originalString2(
       ['bedb', 'bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString3(
+      ['bedb', 'bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print("------------");
   print("test 9");
   print(originalString(
       ['bedb','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print(originalString2(
       ['bedb','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString3(
+      ['bedb','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print("test 10");
   print(originalString(
       ['be','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print(originalString2(
+      ['be','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString3(
       ['be','bed', 'bath', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print("------------111");
   print(originalString(
       ['bed', 'bat', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
   print(originalString2(
+      ['bed', 'bat', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
+  print(originalString3(
       ['bed', 'bat', 'bedbath', 'and', 'beyond'], "bedbathandbeyond"));
 }
 
@@ -203,8 +226,10 @@ multiplString(int n, String str) {
 }
 
 List<String> originalString2(List<String> dictionary, String noSpaceString) {
+
+  int loops=0;
   List<String> res = [];
-  List<Map> possibilities=[];
+  List<String> possibilities=[];
   if (noSpaceString.length == 0) {
     return null;
   }
@@ -215,8 +240,9 @@ List<String> originalString2(List<String> dictionary, String noSpaceString) {
       int lengthToTrim = currentWord.length;
       if (dictionary.contains(currentWord)) {
         res.add(currentWord);
-
+        possibilities.add(currentWord);
         noSpaceString = noSpaceString.substring(lengthToTrim);
+        ///TODO
         continue mainLoop;
       }
 //      else if(i==noSpaceString.length-1){
@@ -237,17 +263,65 @@ List<String> originalString2(List<String> dictionary, String noSpaceString) {
 //      print("nospaceString is $noSpaceString and res is $res ");
       print(3);
       //can add another while llop here, which goes through each starting position, and then
+      possibilities=possibilities.toSet().toList();
+      if(loops<=possibilities.length){
+        String temp =possibilities[0];
+        dictionary.remove(temp);
+        dictionary.add(temp);
+        possibilities.removeAt(0);
+        possibilities.add(temp);
+        print("inside loops");
+        loops++;
+      }
+
       return null;
     }
     print(4);
 
-//  else {
-//    List<String> temp = originalString(dictionary, noSpaceString);
-//    if (temp != null) res.addAll(temp);
-//
-//    return (temp != null) ? res : temp;
-//  }
-
-
   return res;
+}
+
+List<String> originalString3(List<String> dict, String str) {
+  print("is str empty ${str.isEmpty} length ${str.length}");
+  if(str.isEmpty)
+    return null;
+  Map<String,String> matchedDictWords={};
+  mainForLoop:for(int i=0;i<dict.length;i++){
+    String selectedWord=dict[i];
+    if(dict.contains(selectedWord)){
+      print("selectedword is $selectedWord");
+      if(selectedWord==str){
+        matchedDictWords[selectedWord]="";
+      }else
+      matchedDictWords[selectedWord]=str.split(selectedWord)[1];
+    }
+
+  }
+  if(matchedDictWords.isEmpty)
+    return null; //this means none of the dictionary word matched str
+
+  //now lest try to form original string from matched words
+  String tempStr='';
+  List<String> res=[];
+  List<String> allKeys=matchedDictWords.keys.toList();
+//  print("matcheddictwords are $matchedDictWords");
+  //find key with value that matches tempStr and keep adding it to tempStr
+  int totalMatchedWords = matchedDictWords.length;
+  for(int j=0;j<totalMatchedWords;j++){
+//    print("tempStr is $tempStr and its length is ${tempStr.length}");
+    if(matchedDictWords.containsValue(tempStr)){
+      String keyFound=allKeys.firstWhere((item)=>matchedDictWords[item]==tempStr);
+      tempStr=keyFound+tempStr;
+      res.insert(0, keyFound);
+      matchedDictWords.remove(keyFound);
+
+    }
+    if(res.join("")==str)
+      return res;
+//    if(matchedDictWords.isNotEmpty)
+//      return null;
+  }
+//  print("matcheddictwords after are $matchedDictWords");
+//  print("res value is $res");
+  return null;
 }

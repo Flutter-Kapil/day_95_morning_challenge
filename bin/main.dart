@@ -65,29 +65,29 @@ int differenceBetweenDays(String day1, String day2) {
 }
 
 void main() {
-  print(longestStreak([
-        {"date": "2019-09-18"},
-        {"date": "2019-09-19"},
-        {"date": "2019-09-26"},
-        {"date": "2019-09-27"},
-        {"date": "2019-09-30"},
-        {"date": "2019-09-20"},
-      ]) ==
-      3);
-  print(longestStreak([
-        {"date": "2019-09-18"},
-        {"date": "2019-09-19"},
-      ]) ==
-      2);
-  print(longestStreak([
-        {"date": "2019-09-18"},
-      ]) ==
-      1);
-  print(longestStreak([
-        {"date": "2019-09-18"},
-        {"date": "2019-10-19"},
-      ]) ==
-      1);
+//  print(longestStreak([
+//        {"date": "2019-09-18"},
+//        {"date": "2019-09-19"},
+//        {"date": "2019-09-26"},
+//        {"date": "2019-09-27"},
+//        {"date": "2019-09-30"},
+//        {"date": "2019-09-20"},
+//      ]) ==
+//      3);
+//  print(longestStreak([
+//        {"date": "2019-09-18"},
+//        {"date": "2019-09-19"},
+//      ]) ==
+//      2);
+//  print(longestStreak([
+//        {"date": "2019-09-18"},
+//      ]) ==
+//      1);
+//  print(longestStreak([
+//        {"date": "2019-09-18"},
+//        {"date": "2019-10-19"},
+//      ]) ==
+//      1);
   print("test 1");
   print(originalString(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
   print(originalStringWithoutRecur(['quick', 'brown', 'the', 'fox'], "thequickbrownfox"));
@@ -192,48 +192,44 @@ String randomString(length) {
   return result;
 }
 
+List<String> originalStringWithoutRecur(List<String> dictionary,String str){
 
-List<String> originalStringWithoutRecur(List<String> dict, String str) {
-//  print("is str empty ${str.isEmpty} length ${str.length}");
-  if(str.isEmpty)
-    return null;
-  Map<String,String> matchedDictWords={};
-  mainForLoop:for(int i=0;i<dict.length;i++){
-    String selectedWord=dict[i];
-    if(str.contains(selectedWord)){
-//      print("selectedword is $selectedWord");
-      if(selectedWord==str){
-        matchedDictWords[selectedWord]="";
-      }else
-      matchedDictWords[selectedWord]=str.split(selectedWord)[1];
+  List<List> storage=[];
+  for(int i=0;i<dictionary.length;i++){
+    String selectedWord=dictionary[i];
+    if(wordStartsWith(str, selectedWord)){
+      storage.add([[selectedWord],str.substring(selectedWord.length)]);
     }
-
   }
-  if(matchedDictWords.isEmpty)
-    return null; //this means none of the dictionary word matched str
-
-  //now lest try to form original string from matched words
-  String tempStr='';
-  List<String> res=[];
-  List<String> allKeys=matchedDictWords.keys.toList();
-//  print("matcheddictwords are $matchedDictWords");
-  //find key with value that matches tempStr and keep adding it to tempStr
-  int totalMatchedWords = matchedDictWords.length;
-  for(int j=0;j<totalMatchedWords;j++){
-//    print("tempStr is $tempStr and its length is ${tempStr.length}");
-    if(matchedDictWords.containsValue(tempStr)){
-      String keyFound=allKeys.firstWhere((item)=>matchedDictWords[item]==tempStr);
-      tempStr=keyFound+tempStr;
-      res.insert(0, keyFound);
-      matchedDictWords.remove(keyFound);
-
+//  print(storage);
+  while(storage.isNotEmpty){
+    var currentSelection=storage.removeLast();
+    List<String> listOfMatches= currentSelection[0];
+    String remainingString = currentSelection[1];
+    if(remainingString.isEmpty)
+      return listOfMatches;
+    for(int i=0;i<dictionary.length;i++){
+      String selectedWord=dictionary[i];
+//      print("remS is $remainingString and seletWord is $selectedWord");
+      if(wordStartsWith(remainingString, selectedWord)){
+        List<String> temp=[];
+        temp.addAll(listOfMatches);
+        temp.add(selectedWord);
+        String tempSubString=remainingString.substring(selectedWord.length);
+        if(tempSubString.isEmpty)
+          return temp;
+        storage.add([temp,tempSubString]);
+      }
     }
-    if(res.join("")==str)
-      return res;
-//    if(matchedDictWords.isNotEmpty)
-//      return null;
+//    print("storage is $storage");
   }
-//  print("matcheddictwords after are $matchedDictWords");
-//  print("res value is $res");
+
   return null;
+}
+
+
+bool wordStartsWith(String word, String str){
+  if(str.length>word.length)
+    return false;
+  return str==word.substring(0,str.length) && str.isNotEmpty;
 }
